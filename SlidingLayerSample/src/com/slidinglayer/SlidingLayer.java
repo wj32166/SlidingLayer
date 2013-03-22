@@ -47,7 +47,7 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 import com.slidinglayer.util.CommonUtils;
-import com.ugia.slidinglayersample.R;
+import com.slidinglayersample.R;
 
 public class SlidingLayer extends FrameLayout {
 
@@ -95,6 +95,7 @@ public class SlidingLayer extends FrameLayout {
     private Drawable mShadowDrawable;
 
     private int mScreenSide = STICK_TO_AUTO;
+    private boolean closeOnTapEnabled = true;
 
     private boolean mEnabled = true;
     private boolean mSlidingFromShadowEnabled = true;
@@ -150,6 +151,9 @@ public class SlidingLayer extends FrameLayout {
 
         // Sets the shadow width
         setShadowWidth((int) ta.getDimension(R.styleable.SlidingLayer_shadowWidth, 0));
+
+        // Sets the ability to close the layer by tapping in any empty space
+        closeOnTapEnabled = ta.getBoolean(R.styleable.SlidingLayer_closeOnTapEnabled, true);
 
         ta.recycle();
 
@@ -499,7 +503,7 @@ public class SlidingLayer extends FrameLayout {
 
                 mActivePointerId = INVALID_POINTER;
                 endDrag();
-            } else if (mIsOpen) {
+            } else if (mIsOpen && closeOnTapEnabled) {
                 closeLayer(true);
             }
             break;
