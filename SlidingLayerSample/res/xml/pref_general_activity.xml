@@ -27,8 +27,7 @@
             android:entries="@array/pref_list_titles"
             android:entryValues="@array/pref_list_values"
             android:key="layer_location"
-            android:title="@string/pref_title_stick_container"
-            android:summary="@string/pref_summary_stick_container" />
+            android:title="@string/pref_title_stick_container"/>
     
     <CheckBoxPreference
         android:defaultValue="true"
