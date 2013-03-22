@@ -6,6 +6,8 @@
  * @author      Jose L Ugia - @Jl_Ugia
  * @author      Antonio Consuegra - @aconsuegra
  * @author      Cesar Valiente - @CesarValiente
+ * @author      Benedikt Lehnert - @blehnert
+ * @author      Timothy Achumba - @iam_timm
  * @version     2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,12 +32,14 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.slidinglayer.SlidingLayer;
 
 public class MainActivity extends Activity {
 
     private SlidingLayer mSlidingLayer;
+    private TextView swipeText;
 
     private String mStickContainerToRightLeftOrMiddle;
     private boolean mShowShadow;
@@ -55,6 +59,7 @@ public class MainActivity extends Activity {
      */
     private void bindViews() {
         mSlidingLayer = (SlidingLayer) findViewById(R.id.slidingLayer1);
+        swipeText = (TextView) findViewById(R.id.swipeText);
     }
 
     /**
@@ -102,11 +107,14 @@ public class MainActivity extends Activity {
 
     public void buttonClicked(View v) {
         switch (v.getId()) {
-        case R.id.button2:
+        case R.id.buttonOpen:
+            if (!mSlidingLayer.isOpened()) {
+                mSlidingLayer.openLayer(true);
+            }
+            break;
+        case R.id.buttonClose:
             if (mSlidingLayer.isOpened()) {
                 mSlidingLayer.closeLayer(true);
-            } else {
-                mSlidingLayer.openLayer(true);
             }
             break;
         }
