@@ -73,24 +73,27 @@ public class MainActivity extends Activity {
 
         // Sticks container to right or left
         LayoutParams rlp = (LayoutParams) mSlidingLayer.getLayoutParams();
+        int textResource;
 
         if (mStickContainerToRightLeftOrMiddle.equals("right")) {
+            textResource = R.string.swipe_right_label;
             rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         } else if (mStickContainerToRightLeftOrMiddle.equals("left")) {
+            textResource = R.string.swipe_left_label;
             rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         } else {
+            textResource = R.string.swipe_label;
             rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
             rlp.width = LayoutParams.MATCH_PARENT;
         }
 
+        swipeText.setText(getResources().getString(textResource));
         mSlidingLayer.setLayoutParams(rlp);
 
         // Sets the shadow of the container
         if (mShowShadow) {
             mSlidingLayer.setShadowWidthRes(R.dimen.shadow_width);
-            mSlidingLayer
-                    .setShadowDrawable(mStickContainerToRightLeftOrMiddle.equals("right") ? R.drawable.sidebar_shadow
-                            : R.drawable.sidebar_shadow_right);
+            mSlidingLayer.setShadowDrawable(R.drawable.sidebar_shadow);
         } else {
             mSlidingLayer.setShadowWidth(0);
             mSlidingLayer.setShadowDrawable(null);
