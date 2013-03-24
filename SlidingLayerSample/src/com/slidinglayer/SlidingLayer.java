@@ -79,9 +79,8 @@ public class SlidingLayer extends FrameLayout {
 
     private static final int MAX_SCROLLING_DURATION = 600; // in ms
     private static final int MIN_DISTANCE_FOR_FLING = 25; // in dip
-    private static final boolean SLIDING_MENU_ANIMATION_CONSISTENCY_MODE = true;
 
-    private static final Interpolator sSlidingMenuInterpolator = new Interpolator() {
+    private static final Interpolator sMenuInterpolator = new Interpolator() {
         @Override
         public float getInterpolation(float t) {
             t -= 1.0f;
@@ -165,7 +164,7 @@ public class SlidingLayer extends FrameLayout {
         setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
         setFocusable(true);
         final Context context = getContext();
-        mScroller = new Scroller(context, SLIDING_MENU_ANIMATION_CONSISTENCY_MODE ? sSlidingMenuInterpolator : null);
+        mScroller = new Scroller(context, sMenuInterpolator);
         final ViewConfiguration configuration = ViewConfiguration.get(context);
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
         mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
@@ -758,9 +757,6 @@ public class SlidingLayer extends FrameLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         // Make sure scroll position is set correctly.
         if (w != oldw) {
-            // **SlidingMenu comment** [ChrisJ] - This fixes the onConfiguration change for orientation issue..
-            // maybe worth having a look why the recomputeScroll pos is screwing
-            // up?
             completeScroll();
             scrollTo(getDestScrollX(), getScrollY());
         }
